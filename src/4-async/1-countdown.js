@@ -5,4 +5,27 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
  * @param {number} waitTimeMs time to wait between yields in milliseconds
  */
 export function countdown (waitTimeMs) {
+    return {
+        async * [Symbol.asyncIterator] () {
+            for (let i = 10; i > 0; i--) {
+                yield i
+                await sleep(waitTimeMs)
+            }
+            yield 0
+        }
+    }
 }
+
+// const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+//
+// export function countdown (waitTimeMs) {
+//     return {
+//         async * [Symbol.asyncIterator] () {
+//             for (let i = 10; i > 0; i--) {
+//                 yield i
+//                 await sleep(waitTimeMs)
+//             }
+//             yield 0
+//         }
+//     }
+// }
